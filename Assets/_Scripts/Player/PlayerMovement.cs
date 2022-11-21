@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public static PlayerMovement Instance;
 
     [SerializeField] private Rigidbody2D _rb;
-    [SerializeField] private SpriteRenderer _mainSprite;
+    //[SerializeField] private SpriteRenderer _mainSprite;
     
     private float _speed;
     private Vector2 movementInput;
@@ -26,17 +26,17 @@ public class PlayerMovement : MonoBehaviour
             Movement();
         else
             _rb.velocity = Vector2.zero;
-
-        
     }
     public void OnMove(InputAction.CallbackContext context)
     {
         movementInput = context.ReadValue<Vector2>();
+        movementInput.Normalize();
     }
 
  
     void Movement()
     {
+        print("oui");
         Vector2 move = new Vector2(movementInput.x, movementInput.y) * _speed;
         _rb.velocity = move;
     }

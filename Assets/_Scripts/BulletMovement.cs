@@ -16,7 +16,7 @@ public class BulletMovement : MonoBehaviour
 
     void Start()
     {
-        Destroy(gameObject, 10);
+        Destroy(gameObject, 5);
     }
 
     void Update()
