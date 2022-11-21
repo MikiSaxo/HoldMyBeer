@@ -36,7 +36,6 @@ public class PlayerMovement : MonoBehaviour
  
     void Movement()
     {
-        print("oui");
         Vector2 move = new Vector2(movementInput.x, movementInput.y) * _speed;
         _rb.velocity = move;
     }

@@ -42,13 +42,13 @@ public class PlayerManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        SetRanged();
-        SetMelee();
-        SetSpeedPlayer();
     }
 
     private void Start()
     {
+        SetRanged();
+        SetMelee();
+        SetSpeedPlayer();
     }
 
     public float GetRangedDamage()
