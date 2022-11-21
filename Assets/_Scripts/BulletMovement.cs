@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class BulletMovement : MonoBehaviour
 {
-    [SerializeField] private float _speed = 10;
+    private float _speed;
 
     private Vector3 _direction;
 
-    public void Initialize(Vector3 direction)
+    public void Initialize(Vector3 direction, float speed)
     {
         _direction = direction;
+        _speed = speed;
     }
 
     void Start()

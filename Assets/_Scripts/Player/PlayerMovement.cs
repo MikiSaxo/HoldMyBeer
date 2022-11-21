@@ -6,16 +6,18 @@ using DG.Tweening;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public static PlayerMovement Instance;
 
-    [SerializeField] private float _speed;
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private SpriteRenderer _mainSprite;
     
+    private float _speed;
+    private Vector2 movementInput;
 
-    Vector2 movementInput = Vector2.zero;
 
-    private void Start()
+    private void Awake()
     {
+        Instance = this;
     }
 
     void Update()
@@ -37,5 +39,10 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector2 move = new Vector2(movementInput.x, movementInput.y) * _speed;
         _rb.velocity = move;
+    }
+
+    public void UpdateSpeedValue(float speed)
+    {
+        _speed = speed;
     }
 }

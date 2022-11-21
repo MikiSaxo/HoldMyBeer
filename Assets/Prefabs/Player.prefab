@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4839938403396434621}
+  - component: {fileID: 1427423599290220127}
   - component: {fileID: 4839938403396434620}
   - component: {fileID: 4839938403396434623}
   - component: {fileID: 4839938403396434610}
@@ -37,6 +38,29 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1427423599290220127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4839938403396434616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fde8833a64fcfa3409ece7337b0d1f2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _life: 100
+  _playerSpeed: 5
+  _critChance: 20
+  _critDamage: 50
+  _meleeAtkSpeed: 1
+  _meleeAtkDamage: 5
+  _meleeAtkAngle: 60
+  _meleeAtkRange: 1
+  _rangedAtkSpeed: 0.5
+  _rangedAtkDamage: 2
+  _rangedBulletSpeed: 10
 --- !u!114 &4839938403396434620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,7 +135,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd71c9178f74e9d44a39111e6c8b5af3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 5
   _rb: {fileID: 4839938403396434610}
   _mainSprite: {fileID: 4839938403930707764}
 --- !u!50 &4839938403396434610
@@ -364,6 +387,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7244b3c8ccdaaa48b4720a2795ac39a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bullet: {fileID: 0}
+  _bullet: {fileID: 6871970874225716842, guid: d33d19d8fe5b570488c021cc66d0f9a2, type: 3}
+  _bulletParent: {fileID: 0}
   _sprite: {fileID: 4839938403931881390}
-  _shootRate: 0.3
