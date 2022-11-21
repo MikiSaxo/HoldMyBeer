@@ -9,14 +9,20 @@ public class PlayerAim : MonoBehaviour
 
     [SerializeField] private GameObject _bullet;
     [SerializeField] private Transform _bulletParent;
-    [SerializeField] private GameObject _sprite;
-    private float _shootRate;
-    private float _bulletSpeed;
+    [SerializeField] private GameObject _mainSprite;
+    [SerializeField] private GameObject _meleeRange;
 
     private Vector2 _aimInput;
     private Vector2 _aimInputLast;
     private Vector3 _transferPosition;
-    private float _shootCooldown;
+
+    private float _rangedCooldown;
+    private float _rangedAtkSpeed;
+    private float _rangedBulletSpeed;
+
+    private float _meleeCooldown;
+    private float _meleeAtkSpeed;
+
 
     private void Awake()
     {
@@ -35,43 +41,62 @@ public class PlayerAim : MonoBehaviour
     }
 
 
-    void Update()
+    private void Update()
     {
         _transferPosition = new Vector3(_aimInputLast.x + transform.position.x, _aimInputLast.y + transform.position.y, 0);
 
         if (_aimInput.sqrMagnitude > 0)
             Aim();
 
-        _shootCooldown += Time.deltaTime;
+        _rangedCooldown += Time.deltaTime;
+        _meleeCooldown += Time.deltaTime;
 
-        if (_shootCooldown > _shootRate)
+        if (_rangedCooldown > _rangedAtkSpeed)
         {
-            _shootCooldown -= _shootRate;
-            Shoot();
+            _rangedCooldown -= _rangedAtkSpeed;
+            RangedAtk();
         }
 
+        if (_meleeCooldown > _meleeAtkSpeed)
+        {
+            _meleeCooldown -= _meleeAtkSpeed;
+            MeleeAtk();
+        }
     }
 
-    void Aim()
+    private void Aim()
     {
         _aimInputLast = _aimInput;
-        
+
         float angle = Mathf.Atan2(_aimInputLast.y, _aimInputLast.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
 
-    void Shoot()
+    private void RangedAtk()
     {
         var rotation = transform.rotation;
         rotation *= Quaternion.Euler(0, 0, 90);
         GameObject bullet = Instantiate(_bullet, _transferPosition, rotation);
         bullet.transform.SetParent(_bulletParent);
-        bullet.GetComponent<BulletMovement>().Initialize(_aimInputLast, _bulletSpeed);
+        bullet.GetComponent<BulletMovement>().Initialize(_aimInputLast, _rangedBulletSpeed);
     }
 
-    public void UpdateAimValues(float bulletSpd, float shootRate)
+    private void MeleeAtk()
     {
-        _bulletSpeed = bulletSpd;
-        _shootRate = shootRate;
+        StartCoroutine(MeleeAnim());
+    }
+
+    IEnumerator MeleeAnim()
+    {
+        _meleeRange.SetActive(true);
+        yield return new WaitForSeconds(.1f);
+        _meleeRange.SetActive(false);
+    }
+
+    public void UpdateAimValues(float rangedBulletSpeed, float rangedAtkSpeed, float meleeAtkSpeed)
+    {
+        _rangedBulletSpeed = rangedBulletSpeed;
+        _rangedAtkSpeed = rangedAtkSpeed;
+        _meleeAtkSpeed = meleeAtkSpeed;
     }
 }

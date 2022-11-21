@@ -22,17 +22,17 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float _playerSpeed;
 
     [Header("Crit")]
-    [SerializeField] private float _critChance;
+    [Tooltip("In %")] [SerializeField] private float _critChance; 
     [SerializeField] private int _critDamage;
 
     [Header("Melee")]
-    [SerializeField] private float _meleeAtkSpeed;
+    [Tooltip("Per sec")] [SerializeField] private float _meleeAtkSpeed;
     [SerializeField] private float _meleeAtkDamage;
     [SerializeField] private float _meleeAtkAngle;
     [SerializeField] private float _meleeAtkRange;
 
     [Header("Ranged")]
-    [SerializeField] private float _rangedAtkSpeed;
+    [Tooltip("Per sec")] [SerializeField] private float _rangedAtkSpeed;
     [SerializeField] private float _rangedAtkDamage;
     [SerializeField] private float _rangedBulletSpeed;
 
@@ -62,7 +62,7 @@ public class PlayerManager : MonoBehaviour
 
     public void SetRanged()
     {
-        PlayerAim.Instance.UpdateAimValues(_rangedBulletSpeed, _rangedAtkSpeed);
+        PlayerAim.Instance.UpdateAimValues(_rangedBulletSpeed, _rangedAtkSpeed, _meleeAtkSpeed);
     }
 
     public void SetMelee()
