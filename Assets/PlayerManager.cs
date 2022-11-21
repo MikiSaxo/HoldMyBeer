@@ -29,7 +29,7 @@ public class PlayerManager : MonoBehaviour
     [Tooltip("Per sec")] [SerializeField] private float _meleeAtkSpeed;
     [SerializeField] private float _meleeAtkDamage;
     [SerializeField] private float _meleeAtkAngle;
-    [SerializeField] private float _meleeAtkRange;
+    [Tooltip("1 is the original range")] [SerializeField] private float _meleeAtkRange;
 
     [Header("Ranged")]
     [Tooltip("Per sec")] [SerializeField] private float _rangedAtkSpeed;

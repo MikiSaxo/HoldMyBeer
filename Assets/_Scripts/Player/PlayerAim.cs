@@ -35,6 +35,7 @@ public class PlayerAim : MonoBehaviour
     private void Start()
     {
         _aimInputLast = new Vector2(1, 0);
+        _meleeAtkRange = 1;
     }
 
     public void OnAim(InputAction.CallbackContext context)
@@ -92,15 +93,15 @@ public class PlayerAim : MonoBehaviour
     IEnumerator MeleeAnim()
     {
         _meleeObjRange.SetActive(true);
-        yield return new WaitForSeconds(.1f);
+        yield return new WaitForSeconds(.2f);
         _meleeObjRange.SetActive(false);
     }
 
     public void UpdateAimValues(float rangedBulletSpeed, float rangedAtkSpeed, float meleeAtkSpeed, float meleeAtkAngle, float meleeAtkRange)
     {
-        _rangedBulletSpeed = rangedBulletSpeed;
-        _rangedAtkSpeed = rangedAtkSpeed;
-        _meleeAtkSpeed = meleeAtkSpeed;
+        _rangedBulletSpeed += rangedBulletSpeed;
+        _rangedAtkSpeed += rangedAtkSpeed;
+        _meleeAtkSpeed += meleeAtkSpeed;
         UpdateMeleeAngle(meleeAtkAngle, meleeAtkRange);
 
     }
@@ -111,7 +112,8 @@ public class PlayerAim : MonoBehaviour
         _meleeAtkAngle += addedAngle;
         _meleeObjRange.GetComponent<Image>().fillAmount = _meleeAtkAngle / 360;
 
-        _meleeAtkRange = meleeAtkRange;
+        _meleeAtkRange += meleeAtkRange;
+        _meleeObjRange.transform.localScale = Vector3.one * _meleeAtkRange;
     }
 
     public void IncreaseAngleCursor()
