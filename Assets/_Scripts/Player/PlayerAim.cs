@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerAim : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class PlayerAim : MonoBehaviour
     [SerializeField] private GameObject _bullet;
     [SerializeField] private Transform _bulletParent;
     [SerializeField] private GameObject _mainSprite;
-    [SerializeField] private GameObject _meleeRange;
+    [SerializeField] private GameObject _meleeObjRange;
 
     private Vector2 _aimInput;
     private Vector2 _aimInputLast;
@@ -22,6 +23,8 @@ public class PlayerAim : MonoBehaviour
 
     private float _meleeCooldown;
     private float _meleeAtkSpeed;
+    private float _meleeAtkAngle;
+    private float _meleeAtkRange;
 
 
     private void Awake()
@@ -88,15 +91,31 @@ public class PlayerAim : MonoBehaviour
 
     IEnumerator MeleeAnim()
     {
-        _meleeRange.SetActive(true);
+        _meleeObjRange.SetActive(true);
         yield return new WaitForSeconds(.1f);
-        _meleeRange.SetActive(false);
+        _meleeObjRange.SetActive(false);
     }
 
-    public void UpdateAimValues(float rangedBulletSpeed, float rangedAtkSpeed, float meleeAtkSpeed)
+    public void UpdateAimValues(float rangedBulletSpeed, float rangedAtkSpeed, float meleeAtkSpeed, float meleeAtkAngle, float meleeAtkRange)
     {
         _rangedBulletSpeed = rangedBulletSpeed;
         _rangedAtkSpeed = rangedAtkSpeed;
         _meleeAtkSpeed = meleeAtkSpeed;
+        UpdateMeleeAngle(meleeAtkAngle, meleeAtkRange);
+
+    }
+
+    private void UpdateMeleeAngle(float addedAngle, float meleeAtkRange)
+    {
+        _meleeObjRange.transform.Rotate(new Vector3(0, 0, addedAngle / 2));
+        _meleeAtkAngle += addedAngle;
+        _meleeObjRange.GetComponent<Image>().fillAmount = _meleeAtkAngle / 360;
+
+        _meleeAtkRange = meleeAtkRange;
+    }
+
+    public void IncreaseAngleCursor()
+    {
+        UpdateMeleeAngle(10f, _meleeAtkRange);
     }
 }

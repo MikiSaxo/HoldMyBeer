@@ -62,7 +62,7 @@ public class PlayerManager : MonoBehaviour
 
     public void SetRanged()
     {
-        PlayerAim.Instance.UpdateAimValues(_rangedBulletSpeed, _rangedAtkSpeed, _meleeAtkSpeed);
+        PlayerAim.Instance.UpdateAimValues(_rangedBulletSpeed, _rangedAtkSpeed, _meleeAtkSpeed, _meleeAtkAngle, _meleeAtkRange);
     }
 
     public void SetMelee()
