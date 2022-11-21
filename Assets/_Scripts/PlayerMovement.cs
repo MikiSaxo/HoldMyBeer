@@ -7,13 +7,12 @@ using DG.Tweening;
 public class PlayerMovement : MonoBehaviour
 {
 
-    [SerializeField] float Speed;
-    [SerializeField] Rigidbody2D rb;
-    [SerializeField] SpriteRenderer MainSprite;
-    [SerializeField] private float bulletShoot;
+    [SerializeField] private float _speed;
+    [SerializeField] private Rigidbody2D _rb;
+    [SerializeField] private SpriteRenderer _mainSprite;
+    
 
     Vector2 movementInput = Vector2.zero;
-    private float nextShoot;
 
     private void Start()
     {
@@ -23,13 +22,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (movementInput.sqrMagnitude > 0)
             Movement();
+        else
+            _rb.velocity = Vector2.zero;
 
-        nextShoot += Time.deltaTime;
-
-        if (nextShoot > bulletShoot)
-        {
-            nextShoot -= bulletShoot;
-        }
+        
     }
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -39,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
  
     void Movement()
     {
-        Vector2 move = new Vector2(movementInput.x, movementInput.y) * Speed;
-        rb.velocity = move;
+        Vector2 move = new Vector2(movementInput.x, movementInput.y) * _speed;
+        _rb.velocity = move;
     }
 }
