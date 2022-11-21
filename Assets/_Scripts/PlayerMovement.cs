@@ -10,10 +10,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float Speed;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] SpriteRenderer MainSprite;
-    [SerializeField] private float dashRate;
+    [SerializeField] private float bulletShoot;
 
     Vector2 movementInput = Vector2.zero;
-    private float nextDash;
+    private float nextShoot;
 
     private void Start()
     {
@@ -21,14 +21,14 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (movementInput != Vector2.zero)
+        if (movementInput.sqrMagnitude > 0)
             Movement();
 
-        nextDash += Time.deltaTime;
+        nextShoot += Time.deltaTime;
 
-        if (nextDash > dashRate)
+        if (nextShoot > bulletShoot)
         {
-            nextDash -= dashRate;
+            nextShoot -= bulletShoot;
         }
     }
     public void OnMove(InputAction.CallbackContext context)
@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
  
     void Movement()
     {
-        Vector2 m2 = new Vector2(movementInput.x, movementInput.y) * Speed;
-        rb.velocity = m2;
+        Vector2 move = new Vector2(movementInput.x, movementInput.y) * Speed;
+        rb.velocity = move;
     }
 }
