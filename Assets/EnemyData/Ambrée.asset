@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Color: {r: 0.5566038, g: 0.25301057, b: 0.04463333, a: 0.9843137}
   Life: 25
-  AtkDamage: 20
+  AtkDamage: 15
   AtkSpeed: 1

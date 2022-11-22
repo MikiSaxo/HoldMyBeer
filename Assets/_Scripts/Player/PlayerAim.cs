@@ -36,10 +36,10 @@ public class PlayerAim : MonoBehaviour
 
     private void Start()
     {
+        _canMove = true;
         _aimInputLast = new Vector2(1, 0);
         PlayerManager.Instance.NextLevel += HasNextLevel;
         PlayerManager.Instance.ChooseUpgrade += HasChooseUpgrade;
-        //_meleeAtkRange = 1;
     }
 
     public void OnAim(InputAction.CallbackContext context)
@@ -129,6 +129,4 @@ public class PlayerAim : MonoBehaviour
     //{
     //    UpdateMeleeAngle(10f, _meleeAtkRange);
     //}
-
-
 }

@@ -11,8 +11,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private SpriteRenderer _spriteNormal;
 
-    //[SerializeField] private SpriteRenderer _mainSprite;
-
     private bool _canMove;
     private float _speed;
     private Vector2 _movementInput;
@@ -25,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        _canMove = true;
         PlayerManager.Instance.NextLevel += HasNextLevel;
         PlayerManager.Instance.ChooseUpgrade += HasChooseUpgrade;
     }

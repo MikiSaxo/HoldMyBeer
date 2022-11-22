@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Brune
   m_EditorClassIdentifier: 
   Color: {r: 0.18867922, g: 0.055155568, b: 0.025809899, a: 0.9843137}
-  Life: 50
-  AtkDamage: 70
+  Life: 60
+  AtkDamage: 40
   AtkSpeed: 0.5

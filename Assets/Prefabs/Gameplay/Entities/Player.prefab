@@ -99,21 +99,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _life: 100
-  _playerSpeed: 5
+  _playerSpeed: 6
   _xpToReach: 5
-  _xpToIncreaseEachStep: 15
+  _xpToIncreaseEachStep: 5
   _critChance: 20
   _critDamage: 50
   _rangedAtkSpeed: 0.5
-  _rangedAtkDamage: 10
+  _rangedAtkDamage: 7
   _rangedBulletSpeed: 10
-  _lifeBar: {fileID: 0}
-  _xpBar: {fileID: 0}
-  _nextLevelMenu: {fileID: 0}
   _cardsNextLevelMenu:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  _lifeBar: {fileID: 0}
+  _xpBar: {fileID: 0}
+  _nextLevelMenu: {fileID: 0}
+  _endGameMenu: {fileID: 0}
+  _restartButton: {fileID: 0}
+  _endChrono: {fileID: 0}
+  _timeToRegen: 2
+  _regen: 1
   _upgradesData:
   - {fileID: 11400000, guid: 4fc52b3b6f5803f4c814dc6fe44042a3, type: 2}
   - {fileID: 11400000, guid: 8c46ff555f918e941a1556773035b3a3, type: 2}

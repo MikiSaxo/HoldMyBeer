@@ -51,6 +51,11 @@ public class ChronoManager : MonoBehaviour
         }
     }
 
+    public string GetChrono()
+    {
+        return _chronoText.text;
+    }
+
     private void HasNextLevel()
     {
         _canMove = false;
@@ -60,7 +65,7 @@ public class ChronoManager : MonoBehaviour
     {
         _canMove = true;
     }
-
+    
     private void OnDisable()
     {
         PlayerManager.Instance.NextLevel -= HasNextLevel;

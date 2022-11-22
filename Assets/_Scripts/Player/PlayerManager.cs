@@ -1,34 +1,25 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
-    //Hp = 100
-    //Movement speed = 5(améliorable, +0.1 par niveau)
-    //Crit rate = 20 % (améliorable, +10 % par niveau, max 100)
-    //Crit damage = 50 % (+5 % par niveau, infini)
-
-    //Attack speed = 1(améliorable, +0.25 par niveau), infini
-    //Attack damage = 5(améliorable, +3 par niveau)
-    //Attack angle = 60(améliorable, +20° par niveau, non améliorable si angle = 360°)
-    //Attack range = 1(améliorable, +0.15 par niveau), max 2
-
-    //Attack speed = 0.5(améliorable, +0.3 par niveau, infini)
-    //Attack damage = 2(améliorable, +2 * par niveau, infini)
-
     [Header("Setup")]
     [SerializeField] private int _life;
     [SerializeField] private float _playerSpeed;
+    [SerializeField] private SpriteRenderer _playerSprite;
     private int _xp;
     [SerializeField] private int _xpToReach;
     [SerializeField] private int _xpToIncreaseEachStep;
 
-    [Header("Crit")]
-    [Tooltip("In %")] [SerializeField] private float _critChance;
-    [SerializeField] private int _critDamage;
+    // [Header("Crit")]
+    // [Tooltip("In %")] [SerializeField] private float _critChance;
+    // [SerializeField] private int _critDamage;
 
     [Header("Ranged")]
     [Tooltip("Per sec")] [SerializeField] private float _rangedAtkSpeed;
@@ -36,10 +27,13 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float _rangedBulletSpeed;
 
     [Header("UI")]
+    [SerializeField] private GameObject[] _cardsNextLevelMenu;
     [SerializeField] private Image _lifeBar;
     [SerializeField] private Image _xpBar;
     [SerializeField] private GameObject _nextLevelMenu;
-    [SerializeField] private GameObject[] _cardsNextLevelMenu;
+    [SerializeField] private GameObject _endGameMenu;
+    [SerializeField] private GameObject _restartButton;
+    [SerializeField] private TextMeshProUGUI _endChrono;
 
     [Header("Life")]
     [SerializeField] private float _timeToRegen;
@@ -97,14 +91,40 @@ public class PlayerManager : MonoBehaviour
 
     public void UpdateLife(int value)
     {
-        //print("life " + _life);
         if (!_canMove) return;
 
         _life += value;
         if (_life > 100)
             _life = 100;
+        else if(_life <= 0)
+            PlayerIsDead();
+
+        if (value < 0)
+            StartCoroutine(TakeDamage());
 
         _lifeBar.fillAmount = (float)_life / 100f;
+    }
+
+    IEnumerator TakeDamage()
+    {
+        _playerSprite.color = Color.red;
+        yield return new WaitForSeconds(.1f);
+        _playerSprite.color = Color.white;
+    }
+
+    private void PlayerIsDead()
+    {
+        NextLevel?.Invoke();
+        _endGameMenu.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(_restartButton);
+        var endChrono =ChronoManager.Instance.GetChrono();
+        _endChrono.text = "Your time : " + endChrono;
+    }
+
+    public void RestartGame()
+    {
+        ChooseUpgrade?.Invoke();
+        SceneManager.LoadScene(0);
     }
 
     public void UpdateXP(int value)
@@ -117,8 +137,7 @@ public class PlayerManager : MonoBehaviour
             _xpToReach += _xpToIncreaseEachStep;
             HasPassedALevel();
         }
-        //print("hello xp " + (float)_xp / (float)_xpToReach);
-        _xpBar.fillAmount = (float)_xp / (float)_xpToReach;// / 100;
+        _xpBar.fillAmount = (float)_xp / (float)_xpToReach;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

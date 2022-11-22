@@ -6,6 +6,7 @@ public class EnemyManager : MonoBehaviour
 {
     [SerializeField] private GameObject _xpObj;
     [SerializeField] private SpriteRenderer _spriteColored;
+    [SerializeField] private GameObject _fxDeath;
 
     private int _life;
     private int _damage;
@@ -28,7 +29,10 @@ public class EnemyManager : MonoBehaviour
 
         if (_life <= 0)
         {
-            Instantiate(_xpObj, transform.position, Quaternion.identity);
+            var position = transform.position;
+            Instantiate(_xpObj, position, Quaternion.identity);
+            // ShakeObject.Instance.StartShakingCam(0);
+            Instantiate(_fxDeath, position, Quaternion.identity);
             Destroy(gameObject);
         }
     }
@@ -47,7 +51,6 @@ public class EnemyManager : MonoBehaviour
 
     private void AtkPlayer()
     {
-        //print("jattack player");
         PlayerManager.Instance.UpdateLife(-_damage);
     }
 
@@ -56,7 +59,6 @@ public class EnemyManager : MonoBehaviour
     {
         if (collision.GetComponent<BulletMovement>())
         {
-            //print("une bullet m'a touchée " + PlayerManager.Instance.GetRangedDamage() + " life " + _life);
             UpdateLife(-PlayerManager.Instance.GetRangedDamage());
             Destroy(collision.gameObject);
         }

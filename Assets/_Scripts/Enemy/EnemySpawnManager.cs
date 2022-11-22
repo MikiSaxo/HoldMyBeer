@@ -47,7 +47,6 @@ public class EnemySpawnManager : MonoBehaviour
 
         _areaSize.x = GetComponent<RectTransform>().rect.width;
         _areaSize.y = GetComponent<RectTransform>().rect.height;
-        //print("_spawnCoolDown " + _spawnCoolDown);
         PlayerManager.Instance.NextLevel += HasNextLevel;
         PlayerManager.Instance.ChooseUpgrade += HasChooseUpgrade;
     }
@@ -63,6 +62,7 @@ public class EnemySpawnManager : MonoBehaviour
         }
     }
 
+    private const int OLIVER_EXTRA_LIFE_POWER = 6;
     public void SpawnEnemy(bool isOliver)
     {
         ChooseRandomBeer();
@@ -83,7 +83,7 @@ public class EnemySpawnManager : MonoBehaviour
             go.GetComponent<EnemyParent>().EnemyMoving.GetComponent<EnemyManager>().Initialize(_enemyColor, _enemyLife, _enemyAtkDamage, _enemyAtkSpeed);
         }
         else
-            go.GetComponent<EnemyParent>().EnemyMoving.GetComponent<EnemyManager>().Initialize(_enemyColor, _enemyLife * 10, _enemyAtkDamage, _enemyAtkSpeed * 2);
+            go.GetComponent<EnemyParent>().EnemyMoving.GetComponent<EnemyManager>().Initialize(_enemyColor, _enemyLife * OLIVER_EXTRA_LIFE_POWER, _enemyAtkDamage, _enemyAtkSpeed * 2);
     }
 
 
@@ -112,7 +112,6 @@ public class EnemySpawnManager : MonoBehaviour
                 continue;
 
             var number = Mathf.Abs(_spawnChance[i] - nb);
-            //print("nb " + nb + " /number " + number);
 
             if (number < smallest)
             {

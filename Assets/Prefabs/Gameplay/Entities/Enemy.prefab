@@ -167,6 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _xpObj: {fileID: 2097841010801864839, guid: 7dbce8800f4a4284894944397cd6c7d0, type: 3}
   _spriteColored: {fileID: 6427737066437961660}
+  _fxDeath: {fileID: 1795732977008166597, guid: 19349d18e98f6854db85b7e9cdb06aa7, type: 3}
 --- !u!50 &765609192129362736
 Rigidbody2D:
   serializedVersion: 4

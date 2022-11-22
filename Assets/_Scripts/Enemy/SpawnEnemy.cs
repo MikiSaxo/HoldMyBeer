@@ -17,7 +17,6 @@ public class SpawnEnemy : MonoBehaviour
     void Start()
     {
         _canMove = true;
-        //print("_spawnTimer " + _spawnTimer);
         PlayerManager.Instance.NextLevel += HasNextLevel;
         PlayerManager.Instance.ChooseUpgrade += HasChooseUpgrade;
     }
