@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -20,6 +21,9 @@ public class PlayerManager : MonoBehaviour
     [Header("Setup")]
     [SerializeField] private int _life;
     [SerializeField] private float _playerSpeed;
+    private int _xp;
+    [SerializeField] private int _xpToReach;
+    [SerializeField] private int _xpToIncreaseEachStep;
 
     [Header("Crit")]
     [Tooltip("In %")] [SerializeField] private float _critChance; 
@@ -27,15 +31,18 @@ public class PlayerManager : MonoBehaviour
 
     [Header("Melee")]
     [Tooltip("Per sec")] [SerializeField] private float _meleeAtkSpeed;
-    [SerializeField] private float _meleeAtkDamage;
+    [SerializeField] private int _meleeAtkDamage;
     [SerializeField] private float _meleeAtkAngle;
     [Tooltip("1 is the original range")] [SerializeField] private float _meleeAtkRange;
 
     [Header("Ranged")]
     [Tooltip("Per sec")] [SerializeField] private float _rangedAtkSpeed;
-    [SerializeField] private float _rangedAtkDamage;
+    [SerializeField] private int _rangedAtkDamage;
     [SerializeField] private float _rangedBulletSpeed;
 
+    [Header("UI")]
+    [SerializeField] private Image _lifeBar;
+    [SerializeField] private Image _xpBar;
 
     public static PlayerManager Instance;
 
@@ -51,11 +58,11 @@ public class PlayerManager : MonoBehaviour
         SetSpeedPlayer();
     }
 
-    public float GetRangedDamage()
+    public int GetRangedDamage()
     {
         return _rangedAtkDamage;
     }
-    public float GetMeleeDamage()
+    public int GetMeleeDamage()
     {
         return _meleeAtkDamage;
     }
@@ -73,5 +80,25 @@ public class PlayerManager : MonoBehaviour
     public void SetSpeedPlayer()
     {
         PlayerMovement.Instance.UpdateSpeedValue(_playerSpeed);
+    }
+
+    public void UpdateLife(int value)
+    {
+        _life += value;
+        _lifeBar.fillAmount = _life / 100;
+    }
+    
+    public void UpdateXP(int value)
+    {
+        _xp += value;
+
+        if(_xp >= _xpToReach)
+        {
+            _xp = 0;
+            _xpToReach += _xpToIncreaseEachStep;
+            //LauchMenu Upgrades
+        }
+
+        _xpBar.fillAmount = _xp / 100;
     }
 }

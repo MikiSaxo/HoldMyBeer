@@ -11,8 +11,9 @@ public class EnemySpawnManager : MonoBehaviour
     [Header("EnemyData")]
     [SerializeField] private float _enemySpawnSpeed;
     [SerializeField] private float _enemyTimerCross;
+    [SerializeField] private int _enemyLife;
+    [SerializeField] private int _enemyAtkDamage;
     [SerializeField] private float _enemySpeed;
-    [SerializeField] private float _enemyAtkDamage;
     [SerializeField] private float _enemyAtkSpeed;
 
 
@@ -46,6 +47,7 @@ public class EnemySpawnManager : MonoBehaviour
         go.transform.position = new Vector2(newX + _spawnParent.transform.position.x, newY + _spawnParent.transform.position.y);
 
         go.GetComponent<EnemyParent>().EnemyMoving.GetComponent<EnemyMovement>().Initialize(_player, _enemySpeed);
+        go.GetComponent<EnemyParent>().EnemyMoving.GetComponent<EnemyManager>().Initialize(_enemyLife, _enemyAtkDamage, _enemySpeed);
         go.GetComponent<EnemyParent>().EnemyCross.GetComponent<SpawnEnemy>().SetSpawnTimer(_enemyTimerCross);
     }
 
