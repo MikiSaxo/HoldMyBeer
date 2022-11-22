@@ -586,17 +586,13 @@ MonoBehaviour:
   _spawnParent: {fileID: 247730793}
   _player: {fileID: 156561427821326537}
   _enemy: {fileID: 6299324112323105937, guid: 2fbb8a61eaeec2b4b86df9886a357c15, type: 3}
-  _enemySpawnSpeed: 0.5
+  _enemySpawnSpeed: 2
   _enemyTimerCross: 1
   _enemySpeed: 3
   _enemyData:
   - {fileID: 11400000, guid: 3446ce8452ff3a64fa351b7e65318b0e, type: 2}
   - {fileID: 11400000, guid: f6dcbf5ddbec2c64f966a214164772a9, type: 2}
   - {fileID: 11400000, guid: 0a6999fb7efc9484b8d6d1a79309f93e, type: 2}
-  _enemyColor: {r: 0.6132076, g: 0.29214135, b: 0.29214135, a: 1}
-  _enemyLife: 1
-  _enemyAtkDamage: 1
-  _enemyAtkSpeed: 0.2
 --- !u!224 &466433784
 RectTransform:
   m_ObjectHideFlags: 0

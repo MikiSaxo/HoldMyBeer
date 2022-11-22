@@ -12,15 +12,15 @@ public class EnemySpawnManager : MonoBehaviour
     [SerializeField] private GameObject _enemy;
 
     [Header("EnemyData")]
-    [SerializeField] private float _enemySpawnSpeed;
+    [Tooltip("Per sec")] [SerializeField] private float _enemySpawnSpeed;
     [SerializeField] private float _enemyTimerCross;
     [SerializeField] private float _enemySpeed;
     [SerializeField] private EnemyData[] _enemyData;
 
-    [SerializeField] private Color _enemyColor;
-    [SerializeField] private int _enemyLife;
-    [SerializeField] private int _enemyAtkDamage;
-    [SerializeField] private float _enemyAtkSpeed;
+    private Color _enemyColor;
+    private int _enemyLife;
+    private int _enemyAtkDamage;
+    private float _enemyAtkSpeed;
 
     private int[] _spawnChance;
 
@@ -36,7 +36,7 @@ public class EnemySpawnManager : MonoBehaviour
     private void Start()
     {
         _spawnChance = new int[6];
-        UpdateSpawnRate(100, 0, 0, 0, 0, 0);
+        UpdateSpawnRate(1, 50, 0, 0, 0, 0);
         _areaSize.x = GetComponent<RectTransform>().rect.width;
         _areaSize.y = GetComponent<RectTransform>().rect.height;
         //print("_spawnCoolDown " + _spawnCoolDown);
@@ -54,6 +54,7 @@ public class EnemySpawnManager : MonoBehaviour
 
     private void SpawnEnemy()
     {
+        ChooseRandomBeer();
         var newY = Random.Range(0, _areaSize.y);
         var newX = Random.Range(0, _areaSize.x);
         GameObject go = Instantiate(_enemy, _spawnParent.transform);
@@ -96,9 +97,22 @@ public class EnemySpawnManager : MonoBehaviour
         //    }
         //}
 
-        //for (int i = 0; i < _spawnChance.Length; i++)
-        //{
-        //    _s
-        //}
+        for (int i = 0; i < _spawnChance.Length; i++)
+        {
+            if (_spawnChance[i] == 0)
+                continue;
+
+            var number = Mathf.Abs(_spawnChance[i] - nb);
+            //print("nb " + nb + " /number " + number);
+
+            if (number < smallest)
+            {
+                smallest = number;
+                _enemyColor = _enemyData[i].Color;
+                _enemyLife = _enemyData[i].Life;
+                _enemyAtkDamage = _enemyData[i].AtkDamage;
+                _enemyAtkSpeed = _enemyData[i].AtkSpeed;
+            }
+        }
     }
 }
