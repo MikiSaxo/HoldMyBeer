@@ -5,8 +5,10 @@ using UnityEngine;
 public class BulletMovement : MonoBehaviour
 {
     private float _speed;
-
+    private bool _canMove;
     private Vector3 _direction;
+    [SerializeField] private float _timeToDie;
+    private float _timeToDieCooldown;
 
     public void Initialize(Vector3 direction, float speed)
     {
@@ -16,16 +18,43 @@ public class BulletMovement : MonoBehaviour
 
     void Start()
     {
-        Destroy(gameObject, 5);
+        _canMove = true;
+        PlayerManager.Instance.NextLevel += HasNextLevel;
+        PlayerManager.Instance.ChooseUpgrade += HasChooseUpgrade;
     }
 
     void Update()
     {
-        Move();
+        if (_canMove)
+        {
+            Move();
+            _timeToDieCooldown += Time.deltaTime;
+        }
+
+        if (_timeToDieCooldown > _timeToDie)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Move()
     {
         transform.position += _direction * _speed * Time.deltaTime;
+    }
+
+    private void HasNextLevel()
+    {
+        _canMove = false;
+    }
+
+    private void HasChooseUpgrade()
+    {
+        _canMove = true;
+    }
+
+    private void OnDisable()
+    {
+        PlayerManager.Instance.NextLevel -= HasNextLevel;
+        PlayerManager.Instance.ChooseUpgrade -= HasChooseUpgrade;
     }
 }

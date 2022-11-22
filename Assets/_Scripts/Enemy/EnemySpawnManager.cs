@@ -28,24 +28,31 @@ public class EnemySpawnManager : MonoBehaviour
 
     private float _spawnCoolDown;
     private Vector2 _areaSize;
+    private bool _canMove;
 
     private void Awake()
     {
         Instance = this;
     }
 
+    const int nbOfBeer = 6;
     private void Start()
     {
-        _spawnChance = new int[6];
+        _spawnChance = new int[nbOfBeer];
+
         UpdateWhichEnemySpawn(_firstSpawnEnemyData.SpawnEnemyChanceInPercent);
         UpdateSpawnRate(_firstSpawnEnemyData.EnemySpawnSpeed);
+
         _areaSize.x = GetComponent<RectTransform>().rect.width;
         _areaSize.y = GetComponent<RectTransform>().rect.height;
         //print("_spawnCoolDown " + _spawnCoolDown);
+        PlayerManager.Instance.NextLevel += HasNextLevel;
+        PlayerManager.Instance.ChooseUpgrade += HasChooseUpgrade;
     }
     void Update()
     {
-        _spawnCoolDown += Time.deltaTime;
+        if(_canMove)
+            _spawnCoolDown += Time.deltaTime;
 
         if (_spawnCoolDown > _enemySpawnSpeed)
         {
@@ -103,5 +110,21 @@ public class EnemySpawnManager : MonoBehaviour
                 _enemyAtkSpeed = _enemyData[i].AtkSpeed;
             }
         }
+    }
+
+    private void HasNextLevel()
+    {
+        _canMove = false;
+    }
+
+    private void HasChooseUpgrade()
+    {
+        _canMove = true;
+    }
+
+    private void OnDisable()
+    {
+        PlayerManager.Instance.NextLevel -= HasNextLevel;
+        PlayerManager.Instance.ChooseUpgrade -= HasChooseUpgrade;
     }
 }

@@ -7,10 +7,19 @@ public class EnemyMovement : MonoBehaviour
     private float _speed = 4;
     private GameObject _player;
     private Rigidbody2D _rb;
+    private bool _canMove;
+
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
+    }
+
+    private void Start()
+    {
+        _canMove = true;
+        PlayerManager.Instance.NextLevel += HasNextLevel;
+        PlayerManager.Instance.ChooseUpgrade += HasChooseUpgrade;
     }
 
     public void Initialize(GameObject player, float speed)
@@ -21,7 +30,10 @@ public class EnemyMovement : MonoBehaviour
 
     void Update()
     {
-        MoveToPlayer();
+        if(_canMove)
+            MoveToPlayer();
+        else
+            _rb.velocity = Vector2.zero;
     }
 
     private void MoveToPlayer()
@@ -37,5 +49,21 @@ public class EnemyMovement : MonoBehaviour
         }
         else
             _rb.velocity = Vector2.zero;
+    }
+
+    private void HasNextLevel()
+    {
+        _canMove = false;
+    }
+
+    private void HasChooseUpgrade()
+    {
+        _canMove = true;
+    }
+
+    private void OnDisable()
+    {
+        PlayerManager.Instance.NextLevel -= HasNextLevel;
+        PlayerManager.Instance.ChooseUpgrade -= HasChooseUpgrade;
     }
 }

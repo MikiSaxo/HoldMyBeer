@@ -21,10 +21,12 @@ public class PlayerAim : MonoBehaviour
     private float _rangedAtkSpeed;
     private float _rangedBulletSpeed;
 
-    private float _meleeCooldown;
-    private float _meleeAtkSpeed;
-    private float _meleeAtkAngle;
-    private float _meleeAtkRange;
+    private bool _canMove;
+
+    //private float _meleeCooldown;
+    //private float _meleeAtkSpeed;
+    //private float _meleeAtkAngle;
+    //private float _meleeAtkRange;
 
 
     private void Awake()
@@ -35,7 +37,9 @@ public class PlayerAim : MonoBehaviour
     private void Start()
     {
         _aimInputLast = new Vector2(1, 0);
-        _meleeAtkRange = 1;
+        PlayerManager.Instance.NextLevel += HasNextLevel;
+        PlayerManager.Instance.ChooseUpgrade += HasChooseUpgrade;
+        //_meleeAtkRange = 1;
     }
 
     public void OnAim(InputAction.CallbackContext context)
@@ -49,13 +53,13 @@ public class PlayerAim : MonoBehaviour
     {
         _transferPosition = new Vector3(_aimInputLast.x + transform.position.x, _aimInputLast.y + transform.position.y, 0);
 
-        if (_aimInput.sqrMagnitude > 0)
+        if (_aimInput.sqrMagnitude > 0 && _canMove)
             Aim();
 
         _rangedCooldown += Time.deltaTime;
         //_meleeCooldown += Time.deltaTime;
 
-        if (_rangedCooldown > _rangedAtkSpeed)
+        if (_rangedCooldown > _rangedAtkSpeed && _canMove)
         {
             _rangedCooldown -= _rangedAtkSpeed;
             RangedAtk();
@@ -85,39 +89,42 @@ public class PlayerAim : MonoBehaviour
         bullet.GetComponent<BulletMovement>().Initialize(_aimInputLast, _rangedBulletSpeed);
     }
 
-    private void MeleeAtk()
-    {
-        StartCoroutine(MeleeAnim());
-    }
-
-    IEnumerator MeleeAnim()
-    {
-        _meleeObjRange.SetActive(true);
-        yield return new WaitForSeconds(.2f);
-        _meleeObjRange.SetActive(false);
-    }
-
-    public void UpdateAimValues(float rangedBulletSpeed, float rangedAtkSpeed, float meleeAtkSpeed, float meleeAtkAngle, float meleeAtkRange)
+    public void UpdateAimValues(float rangedBulletSpeed, float rangedAtkSpeed)
     {
         _rangedBulletSpeed += rangedBulletSpeed;
         _rangedAtkSpeed += rangedAtkSpeed;
-        _meleeAtkSpeed += meleeAtkSpeed;
-        //UpdateMeleeAngle(meleeAtkAngle, meleeAtkRange);
-
     }
 
-    private void UpdateMeleeAngle(float addedAngle, float meleeAtkRange)
+    private void HasNextLevel()
     {
-        _meleeObjRange.transform.Rotate(new Vector3(0, 0, addedAngle / 2));
-        _meleeAtkAngle += addedAngle;
-        _meleeObjRange.GetComponent<Image>().fillAmount = _meleeAtkAngle / 360;
-
-        _meleeAtkRange += meleeAtkRange;
-        _meleeObjRange.transform.localScale = Vector3.one * _meleeAtkRange;
+        _canMove = false;
     }
+
+    private void HasChooseUpgrade()
+    {
+        _canMove = true;
+    }
+
+    private void OnDisable()
+    {
+        PlayerManager.Instance.NextLevel -= HasNextLevel;
+        PlayerManager.Instance.ChooseUpgrade -= HasChooseUpgrade;
+    }
+
+    //private void UpdateMeleeAngle(float addedAngle, float meleeAtkRange)
+    //{
+    //    _meleeObjRange.transform.Rotate(new Vector3(0, 0, addedAngle / 2));
+    //    _meleeAtkAngle += addedAngle;
+    //    _meleeObjRange.GetComponent<Image>().fillAmount = _meleeAtkAngle / 360;
+
+    //    _meleeAtkRange += meleeAtkRange;
+    //    _meleeObjRange.transform.localScale = Vector3.one * _meleeAtkRange;
+    //}
 
     //public void IncreaseAngleCursor()
     //{
     //    UpdateMeleeAngle(10f, _meleeAtkRange);
     //}
+
+
 }

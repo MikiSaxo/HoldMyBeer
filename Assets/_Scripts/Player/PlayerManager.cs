@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,12 +30,6 @@ public class PlayerManager : MonoBehaviour
     [Tooltip("In %")] [SerializeField] private float _critChance; 
     [SerializeField] private int _critDamage;
 
-    [Header("Melee")]
-    [Tooltip("Per sec")] [SerializeField] private float _meleeAtkSpeed;
-    [SerializeField] private int _meleeAtkDamage;
-    [SerializeField] private float _meleeAtkAngle;
-    [Tooltip("1 is the original range")] [SerializeField] private float _meleeAtkRange;
-
     [Header("Ranged")]
     [Tooltip("Per sec")] [SerializeField] private float _rangedAtkSpeed;
     [SerializeField] private int _rangedAtkDamage;
@@ -43,8 +38,15 @@ public class PlayerManager : MonoBehaviour
     [Header("UI")]
     [SerializeField] private Image _lifeBar;
     [SerializeField] private Image _xpBar;
+    [SerializeField] private GameObject _nextLevelMenu;
+    [SerializeField] private GameObject[] _cardsNextLevelMenu;
+
+    [Header("Upgrades Datas")]
+    [SerializeField] private UpgradesData[] _upgradesData;
 
     public static PlayerManager Instance;
+    public event Action NextLevel;
+    public event Action ChooseUpgrade;
 
     private void Awake()
     {
@@ -54,27 +56,19 @@ public class PlayerManager : MonoBehaviour
     private void Start()
     {
         SetRanged();
-        SetMelee();
         SetSpeedPlayer();
+        ChooseUpgrade?.Invoke();
     }
 
     public int GetRangedDamage()
     {
         return _rangedAtkDamage;
     }
-    public int GetMeleeDamage()
-    {
-        return _meleeAtkDamage;
-    }
+  
 
     public void SetRanged()
     {
-        PlayerAim.Instance.UpdateAimValues(_rangedBulletSpeed, _rangedAtkSpeed, _meleeAtkSpeed, _meleeAtkAngle, _meleeAtkRange);
-    }
-
-    public void SetMelee()
-    {
-
+        PlayerAim.Instance.UpdateAimValues(_rangedBulletSpeed, _rangedAtkSpeed);
     }
 
     public void SetSpeedPlayer()
@@ -97,7 +91,7 @@ public class PlayerManager : MonoBehaviour
         {
             _xp = 0;
             _xpToReach += _xpToIncreaseEachStep;
-            //LauchMenu Upgrades
+            NextLevel?.Invoke();
         }
         //print("hello xp " + (float)_xp / (float)_xpToReach);
         _xpBar.fillAmount = (float)_xp / (float)_xpToReach;// / 100;
@@ -110,5 +104,18 @@ public class PlayerManager : MonoBehaviour
             UpdateXP(1);
             Destroy(collision.gameObject);
         }
+    }
+
+    public void TestNExtLevelButton()
+    {
+        HasPassedALevel();
+    }
+
+    private void HasPassedALevel()
+    {
+        NextLevel?.Invoke();
+        _nextLevelMenu.SetActive(true);
+
+        _cardsNextLevelMenu[0].GetComponent<CardUpgrade>().Initialize(_upgradesData[0]);
     }
 }

@@ -6,6 +6,9 @@ public class SpawnEnemy : MonoBehaviour
 {
     [SerializeField] private GameObject _enemyMoving;
     private float _spawnTimer;
+    private float _spawnCooldown;
+    private bool _canMove;
+    private bool _hasSpawn;
 
     private void Awake()
     {
@@ -13,19 +16,44 @@ public class SpawnEnemy : MonoBehaviour
     }
     void Start()
     {
+        _canMove = true;
         //print("_spawnTimer " + _spawnTimer);
-        StartCoroutine(SpawnTimerEnemy());
+        PlayerManager.Instance.NextLevel += HasNextLevel;
+        PlayerManager.Instance.ChooseUpgrade += HasChooseUpgrade;
     }
 
-    IEnumerator SpawnTimerEnemy()
+    private void Update()
     {
-        yield return new WaitForSeconds(_spawnTimer);
-        _enemyMoving.SetActive(true);
-        gameObject.SetActive(false);
+        if (_canMove)
+            _spawnCooldown += Time.deltaTime;
+
+        if (_spawnCooldown > _spawnTimer && !_hasSpawn)
+        {
+            _enemyMoving.SetActive(true);
+            gameObject.SetActive(false);
+            _hasSpawn = true;
+        }
     }
 
     public void SetSpawnTimer(float spawnTimer)
     {
         _spawnTimer = spawnTimer;
+    }
+
+
+    private void HasNextLevel()
+    {
+        _canMove = false;
+    }
+
+    private void HasChooseUpgrade()
+    {
+        _canMove = true;
+    }
+
+    private void OnDisable()
+    {
+        PlayerManager.Instance.NextLevel -= HasNextLevel;
+        PlayerManager.Instance.ChooseUpgrade -= HasChooseUpgrade;
     }
 }

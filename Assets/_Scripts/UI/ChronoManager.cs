@@ -16,15 +16,21 @@ public class ChronoManager : MonoBehaviour
     private bool _isGameEnded;
     private float _chrono;
     private float _chronoSpawn;
+    private bool _canMove;
 
     private void Awake()
     {
         Instance = this;
     }
+    private void Start()
+    {
+        PlayerManager.Instance.NextLevel += HasNextLevel;
+        PlayerManager.Instance.ChooseUpgrade += HasChooseUpgrade;
+    }
 
     void Update()
     {
-        if (!_isGameEnded)
+        if (!_isGameEnded && _canMove)
         {
             _chrono += Time.deltaTime;
             _chronoSpawn += Time.deltaTime;
@@ -42,5 +48,21 @@ public class ChronoManager : MonoBehaviour
                 _countSpawnEnemyData++;
             }
         }
+    }
+
+    private void HasNextLevel()
+    {
+        _canMove = false;
+    }
+
+    private void HasChooseUpgrade()
+    {
+        _canMove = true;
+    }
+
+    private void OnDisable()
+    {
+        PlayerManager.Instance.NextLevel -= HasNextLevel;
+        PlayerManager.Instance.ChooseUpgrade -= HasChooseUpgrade;
     }
 }

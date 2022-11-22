@@ -10,9 +10,10 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private Rigidbody2D _rb;
     //[SerializeField] private SpriteRenderer _mainSprite;
-    
+
+    private bool _canMove;
     private float _speed;
-    private Vector2 movementInput;
+    private Vector2 _movementInput;
 
 
     private void Awake()
@@ -20,28 +21,50 @@ public class PlayerMovement : MonoBehaviour
         Instance = this;
     }
 
+    private void Start()
+    {
+        PlayerManager.Instance.NextLevel += HasNextLevel;
+        PlayerManager.Instance.ChooseUpgrade += HasChooseUpgrade;
+    }
+
     void Update()
     {
-        if (movementInput.sqrMagnitude > 0)
+        if (_movementInput.sqrMagnitude > 0 && _canMove)
             Movement();
         else
             _rb.velocity = Vector2.zero;
     }
     public void OnMove(InputAction.CallbackContext context)
     {
-        movementInput = context.ReadValue<Vector2>();
-        movementInput.Normalize();
+        _movementInput = context.ReadValue<Vector2>();
+        _movementInput.Normalize();
     }
 
  
     void Movement()
     {
-        Vector2 move = new Vector2(movementInput.x, movementInput.y) * _speed;
+        Vector2 move = new Vector2(_movementInput.x, _movementInput.y) * _speed;
         _rb.velocity = move;
     }
 
     public void UpdateSpeedValue(float speed)
     {
         _speed = speed;
+    }
+
+    private void HasNextLevel()
+    {
+        _canMove = false;
+    }
+
+    private void HasChooseUpgrade()
+    {
+        _canMove = true;
+    }
+
+    private void OnDisable()
+    {
+        PlayerManager.Instance.NextLevel -= HasNextLevel;
+        PlayerManager.Instance.ChooseUpgrade -= HasChooseUpgrade;
     }
 }
