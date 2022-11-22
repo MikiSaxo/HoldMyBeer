@@ -11,7 +11,7 @@ public class PlayerAim : MonoBehaviour
     [SerializeField] private GameObject _bullet;
     [SerializeField] private Transform _bulletParent;
     [SerializeField] private GameObject _mainSprite;
-    [SerializeField] private GameObject _meleeObjRange;
+    //[SerializeField] private GameObject _meleeObjRange;
 
     private Vector2 _aimInput;
     private Vector2 _aimInputLast;
@@ -56,10 +56,11 @@ public class PlayerAim : MonoBehaviour
         if (_aimInput.sqrMagnitude > 0 && _canMove)
             Aim();
 
-        _rangedCooldown += Time.deltaTime;
+        if(_canMove)
+            _rangedCooldown += Time.deltaTime;
         //_meleeCooldown += Time.deltaTime;
 
-        if (_rangedCooldown > _rangedAtkSpeed && _canMove)
+        if (_rangedCooldown > _rangedAtkSpeed)
         {
             _rangedCooldown -= _rangedAtkSpeed;
             RangedAtk();
@@ -89,10 +90,13 @@ public class PlayerAim : MonoBehaviour
         bullet.GetComponent<BulletMovement>().Initialize(_aimInputLast, _rangedBulletSpeed);
     }
 
-    public void UpdateAimValues(float rangedBulletSpeed, float rangedAtkSpeed)
+    public void UpdateAimSpeed(float rangedAtkSpeed)
+    {
+        _rangedAtkSpeed = rangedAtkSpeed;
+    }
+    public void UpdateBulletSpeed(float rangedBulletSpeed)
     {
         _rangedBulletSpeed += rangedBulletSpeed;
-        _rangedAtkSpeed += rangedAtkSpeed;
     }
 
     private void HasNextLevel()

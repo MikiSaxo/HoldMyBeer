@@ -44,6 +44,8 @@ public class PlayerManager : MonoBehaviour
     [Header("Upgrades Datas")]
     [SerializeField] private UpgradesData[] _upgradesData;
 
+    private bool _canMove;
+
     public static PlayerManager Instance;
     public event Action NextLevel;
     public event Action ChooseUpgrade;
@@ -58,17 +60,18 @@ public class PlayerManager : MonoBehaviour
         SetRanged();
         SetSpeedPlayer();
         ChooseUpgrade?.Invoke();
+        _canMove = true;
+        PlayerAim.Instance.UpdateBulletSpeed(_rangedBulletSpeed);
     }
 
     public int GetRangedDamage()
     {
         return _rangedAtkDamage;
     }
-  
 
     public void SetRanged()
     {
-        PlayerAim.Instance.UpdateAimValues(_rangedBulletSpeed, _rangedAtkSpeed);
+        PlayerAim.Instance.UpdateAimSpeed(_rangedAtkSpeed);
     }
 
     public void SetSpeedPlayer()
@@ -79,6 +82,8 @@ public class PlayerManager : MonoBehaviour
     public void UpdateLife(int value)
     {
         //print("life " + _life);
+        if (!_canMove) return;
+
         _life += value;
         _lifeBar.fillAmount = (float)_life / 100f;
     }
@@ -114,8 +119,25 @@ public class PlayerManager : MonoBehaviour
     private void HasPassedALevel()
     {
         NextLevel?.Invoke();
+        _canMove = false;
         _nextLevelMenu.SetActive(true);
 
-        _cardsNextLevelMenu[0].GetComponent<CardUpgrade>().Initialize(_upgradesData[0]);
+        for (int i = 0; i < _cardsNextLevelMenu.Length; i++)
+        {
+            _cardsNextLevelMenu[i].GetComponent<CardUpgrade>().Initialize(_upgradesData[i]);
+        }
+    }
+
+    public void GetNewUpgrades(UpgradesData upData)
+    {
+        _playerSpeed += upData.MovementSpeed;
+        SetSpeedPlayer();
+        _rangedAtkSpeed += upData.AtkSpeed;
+        SetRanged();
+        _rangedAtkDamage += upData.AtkDamage;
+
+        ChooseUpgrade?.Invoke();
+        _canMove = true;
+        _nextLevelMenu.SetActive(false);
     }
 }

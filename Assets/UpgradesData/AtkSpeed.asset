@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d893d6524d8a0445bc46c053baac71e, type: 3}
-  m_Name: MovementSpeed
+  m_Name: AtkSpeed
   m_EditorClassIdentifier: 
-  Icon: {fileID: 21300000, guid: 22a870330cd10954f92274f0dd51399f, type: 3}
-  Description: ++ Move Speed
-  MovementSpeed: 1
-  AtkSpeed: 0
+  Icon: {fileID: 21300000, guid: 5563b907c6dbaa341b92f719ecfff2f0, type: 3}
+  Description: ++ Atk Speed
+  MovementSpeed: 0
+  AtkSpeed: -0.1
   AtkDamage: 0
