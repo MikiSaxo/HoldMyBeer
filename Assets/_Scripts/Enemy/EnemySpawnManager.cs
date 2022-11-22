@@ -12,7 +12,6 @@ public class EnemySpawnManager : MonoBehaviour
     [SerializeField] private GameObject _enemy;
 
     [Header("EnemyData")]
-    [Tooltip("Per sec")] [SerializeField] private float _enemySpawnSpeed;
     [SerializeField] private float _enemyTimerCross;
     [SerializeField] private float _enemySpeedMovement;
     [SerializeField] private EnemyData[] _enemyData;
@@ -22,6 +21,7 @@ public class EnemySpawnManager : MonoBehaviour
     private int _enemyLife;
     private int _enemyAtkDamage;
     private float _enemyAtkSpeed;
+    private float _enemySpawnSpeed;
 
     private int[] _spawnChance;
 
@@ -37,7 +37,8 @@ public class EnemySpawnManager : MonoBehaviour
     private void Start()
     {
         _spawnChance = new int[6];
-        UpdateSpawnRate(_firstSpawnEnemyData.SpawnEnemyChanceInPercent);
+        UpdateWhichEnemySpawn(_firstSpawnEnemyData.SpawnEnemyChanceInPercent);
+        UpdateSpawnRate(_firstSpawnEnemyData.EnemySpawnSpeed);
         _areaSize.x = GetComponent<RectTransform>().rect.width;
         _areaSize.y = GetComponent<RectTransform>().rect.height;
         //print("_spawnCoolDown " + _spawnCoolDown);
@@ -66,12 +67,17 @@ public class EnemySpawnManager : MonoBehaviour
         go.GetComponent<EnemyParent>().EnemyCross.GetComponent<SpawnEnemy>().SetSpawnTimer(_enemyTimerCross);
     }
 
-    public void UpdateSpawnRate(int[] wave)
+    public void UpdateWhichEnemySpawn(int[] wave)
     {
         for (int i = 0; i < _spawnChance.Length; i++)
         {
             _spawnChance[i] = wave[i];
         }
+    }
+
+    public void UpdateSpawnRate(float enemySpawnSpeed)
+    {
+        _enemySpawnSpeed = enemySpawnSpeed;
     }
 
     private void ChooseRandomBeer()

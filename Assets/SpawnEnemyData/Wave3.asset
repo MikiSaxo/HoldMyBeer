@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Wave3
   m_EditorClassIdentifier: 
   SpawnEnemyChanceInPercent: 190000003200000064000000000000000000000000000000
+  EnemySpawnSpeed: 0.5

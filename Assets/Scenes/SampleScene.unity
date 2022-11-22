@@ -586,7 +586,6 @@ MonoBehaviour:
   _spawnParent: {fileID: 247730793}
   _player: {fileID: 156561427821326537}
   _enemy: {fileID: 6299324112323105937, guid: 2fbb8a61eaeec2b4b86df9886a357c15, type: 3}
-  _enemySpawnSpeed: 0.5
   _enemyTimerCross: 1
   _enemySpeedMovement: 3
   _enemyData:
@@ -1124,7 +1123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _chronoText: {fileID: 148954266}
-  _timeForNewSpawnRate: 60
+  _timeForNewSpawnRate: 5
   _spawnEnemyData:
   - {fileID: 11400000, guid: 7d97320c7e7eebb42924ad62b80bca2c, type: 2}
   - {fileID: 11400000, guid: b9378afc2a9ac964daf2427788ab05a9, type: 2}

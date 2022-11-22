@@ -7,4 +7,5 @@ using UnityEngine;
 public class SpawnEnemyData : ScriptableObject
 {
     public int[] SpawnEnemyChanceInPercent;
+    public float EnemySpawnSpeed;
 }
