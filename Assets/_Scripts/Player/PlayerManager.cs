@@ -96,7 +96,7 @@ public class PlayerManager : MonoBehaviour
         {
             _xp = 0;
             _xpToReach += _xpToIncreaseEachStep;
-            NextLevel?.Invoke();
+            HasPassedALevel();
         }
         //print("hello xp " + (float)_xp / (float)_xpToReach);
         _xpBar.fillAmount = (float)_xp / (float)_xpToReach;// / 100;
