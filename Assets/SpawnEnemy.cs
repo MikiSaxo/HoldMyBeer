@@ -13,7 +13,7 @@ public class SpawnEnemy : MonoBehaviour
     }
     void Start()
     {
-        print("_spawnTimer " + _spawnTimer);
+        //print("_spawnTimer " + _spawnTimer);
         StartCoroutine(SpawnTimerEnemy());
     }
 
