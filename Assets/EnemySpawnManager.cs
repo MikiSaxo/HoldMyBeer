@@ -25,7 +25,7 @@ public class EnemySpawnManager : MonoBehaviour
     {
         _areaSize.x = GetComponent<RectTransform>().rect.width;
         _areaSize.y = GetComponent<RectTransform>().rect.height;
-        print("_spawnCoolDown " + _spawnCoolDown);
+        //print("_spawnCoolDown " + _spawnCoolDown);
     }
     void Update()
     {
