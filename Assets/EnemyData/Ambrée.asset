@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b85b785720bf4e4ca252ab0b347b440, type: 3}
-  m_Name: Wave2
+  m_Script: {fileID: 11500000, guid: 0eccf1ffce446a64f8e084bdf18ccf47, type: 3}
+  m_Name: "Ambr\xE9e"
   m_EditorClassIdentifier: 
-  SpawnEnemyChanceInPercent: 320000006400000000000000000000000000000000000000
-  EnemySpawnSpeed: 0.55
+  Color: {r: 0.5566038, g: 0.25301057, b: 0.04463333, a: 0.9843137}
+  Life: 25
+  AtkDamage: 20
+  AtkSpeed: 1

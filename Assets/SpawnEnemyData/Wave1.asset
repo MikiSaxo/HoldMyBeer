@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Wave1
   m_EditorClassIdentifier: 
   SpawnEnemyChanceInPercent: 640000000000000000000000000000000000000000000000
-  EnemySpawnSpeed: 0.5
+  EnemySpawnSpeed: 0.6
