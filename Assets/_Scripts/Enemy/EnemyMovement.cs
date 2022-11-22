@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
+    [SerializeField] private SpriteRenderer _spriteNormal;
+    [SerializeField] private SpriteRenderer _spriteColored;
+    
+    
     private float _speed = 4;
     private GameObject _player;
     private Rigidbody2D _rb;
     private bool _canMove;
-
 
     private void Awake()
     {
@@ -49,6 +52,10 @@ public class EnemyMovement : MonoBehaviour
         }
         else
             _rb.velocity = Vector2.zero;
+
+
+        _spriteNormal.flipX = _rb.velocity.x > 0 ? true : false;
+        _spriteColored.flipX = _rb.velocity.x > 0 ? true : false;
     }
 
     private void HasNextLevel()

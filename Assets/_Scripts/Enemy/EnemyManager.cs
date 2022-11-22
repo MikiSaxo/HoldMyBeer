@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour
 {
     [SerializeField] private GameObject _xpObj;
-    [SerializeField] private SpriteRenderer _sprite;
+    [SerializeField] private SpriteRenderer _spriteColored;
 
     private int _life;
     private int _damage;
@@ -15,7 +15,7 @@ public class EnemyManager : MonoBehaviour
 
     public void Initialize(Color color, int life, int damage, float atkSpeed)
     {
-        _sprite.color = color;
+        _spriteColored.color = color;
         _life = life;
         _damage = damage;
         _atkSpeed = atkSpeed;

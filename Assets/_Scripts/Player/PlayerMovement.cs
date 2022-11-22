@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     public static PlayerMovement Instance;
 
     [SerializeField] private Rigidbody2D _rb;
+    [SerializeField] private SpriteRenderer _spriteNormal;
+
     //[SerializeField] private SpriteRenderer _mainSprite;
 
     private bool _canMove;
@@ -45,6 +47,8 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector2 move = new Vector2(_movementInput.x, _movementInput.y) * _speed;
         _rb.velocity = move;
+
+        _spriteNormal.flipX = _rb.velocity.x > 0 ? true : false;
     }
 
     public void UpdateSpeedValue(float speed)

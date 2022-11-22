@@ -2205,18 +2205,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1164341417}
     - target: {fileID: 262147481026988211, guid: 130b252497efe3647b81fde4905a6b31, type: 3}
-      propertyPath: _upgradesData.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 262147481026988211, guid: 130b252497efe3647b81fde4905a6b31, type: 3}
-      propertyPath: _upgradesData.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 8c46ff555f918e941a1556773035b3a3, type: 2}
-    - target: {fileID: 262147481026988211, guid: 130b252497efe3647b81fde4905a6b31, type: 3}
-      propertyPath: _upgradesData.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: c85e8cfdf62cc514e88be3193a1676f9, type: 2}
-    - target: {fileID: 262147481026988211, guid: 130b252497efe3647b81fde4905a6b31, type: 3}
       propertyPath: _cardsNextLevelMenu.Array.data[0]
       value: 
       objectReference: {fileID: 1734134412}
