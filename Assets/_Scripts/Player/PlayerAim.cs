@@ -53,7 +53,7 @@ public class PlayerAim : MonoBehaviour
             Aim();
 
         _rangedCooldown += Time.deltaTime;
-        _meleeCooldown += Time.deltaTime;
+        //_meleeCooldown += Time.deltaTime;
 
         if (_rangedCooldown > _rangedAtkSpeed)
         {
@@ -61,11 +61,11 @@ public class PlayerAim : MonoBehaviour
             RangedAtk();
         }
 
-        if (_meleeCooldown > _meleeAtkSpeed)
-        {
-            _meleeCooldown -= _meleeAtkSpeed;
-            MeleeAtk();
-        }
+        //if (_meleeCooldown > _meleeAtkSpeed)
+        //{
+        //    _meleeCooldown -= _meleeAtkSpeed;
+        //    MeleeAtk();
+        //}
     }
 
     private void Aim()
@@ -102,7 +102,7 @@ public class PlayerAim : MonoBehaviour
         _rangedBulletSpeed += rangedBulletSpeed;
         _rangedAtkSpeed += rangedAtkSpeed;
         _meleeAtkSpeed += meleeAtkSpeed;
-        UpdateMeleeAngle(meleeAtkAngle, meleeAtkRange);
+        //UpdateMeleeAngle(meleeAtkAngle, meleeAtkRange);
 
     }
 
@@ -116,8 +116,8 @@ public class PlayerAim : MonoBehaviour
         _meleeObjRange.transform.localScale = Vector3.one * _meleeAtkRange;
     }
 
-    public void IncreaseAngleCursor()
-    {
-        UpdateMeleeAngle(10f, _meleeAtkRange);
-    }
+    //public void IncreaseAngleCursor()
+    //{
+    //    UpdateMeleeAngle(10f, _meleeAtkRange);
+    //}
 }
