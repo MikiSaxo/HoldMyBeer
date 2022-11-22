@@ -588,34 +588,15 @@ MonoBehaviour:
   _enemy: {fileID: 6299324112323105937, guid: 2fbb8a61eaeec2b4b86df9886a357c15, type: 3}
   _enemySpawnSpeed: 0.5
   _enemyTimerCross: 1
+  _enemySpeed: 3
+  _enemyData:
+  - {fileID: 11400000, guid: 3446ce8452ff3a64fa351b7e65318b0e, type: 2}
+  - {fileID: 11400000, guid: f6dcbf5ddbec2c64f966a214164772a9, type: 2}
+  - {fileID: 11400000, guid: 0a6999fb7efc9484b8d6d1a79309f93e, type: 2}
+  _enemyColor: {r: 0.6132076, g: 0.29214135, b: 0.29214135, a: 1}
   _enemyLife: 1
   _enemyAtkDamage: 1
-  _enemySpeed: 3
   _enemyAtkSpeed: 0.2
-  _blancheColor: {r: 0.9959104, g: 1, b: 0.8066038, a: 1}
-  _blancheLife: 10
-  _blancheAtkDamage: 5
-  _blancheAtkSpeed: 1
-  _rougeColor: {r: 1, g: 0, b: 0, a: 1}
-  _rougeLife: 15
-  _rougeAtkDamage: 5
-  _rougeAtkSpeed: 1
-  _blondeColor: {r: 1, g: 0.98475426, b: 0, a: 1}
-  _blondeLife: 25
-  _blondeAtkDamage: 10
-  _blondeAtkSpeed: 1
-  _ambreeColor: {r: 1, g: 0.5102247, b: 0, a: 1}
-  _ambreeLife: 25
-  _ambreeAtkDamage: 20
-  _ambreeAtkSpeed: 1
-  _tripleColor: {r: 1, g: 0, b: 0.43164778, a: 1}
-  _tripleLife: 30
-  _tripleAtkDamage: 50
-  _tripleAtkSpeed: 0.5
-  _bruneColor: {r: 0.4528302, g: 0.17537847, b: 0, a: 1}
-  _bruneLife: 50
-  _bruneAtkDamage: 70
-  _bruneAtkSpeed: 0.5
 --- !u!224 &466433784
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1546,6 +1527,10 @@ PrefabInstance:
       propertyPath: _lifeBar
       value: 
       objectReference: {fileID: 82198799}
+    - target: {fileID: 1002273803753656848, guid: 130b252497efe3647b81fde4905a6b31, type: 3}
+      propertyPath: m_SortingOrder
+      value: 21
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 130b252497efe3647b81fde4905a6b31, type: 3}
 --- !u!4 &156561427821326536 stripped

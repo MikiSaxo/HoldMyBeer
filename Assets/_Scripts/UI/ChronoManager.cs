@@ -25,5 +25,9 @@ public class ChronoManager : MonoBehaviour
             TimeSpan time = TimeSpan.FromSeconds(chrono);
             chronoText.text = time.ToString(@"hh\:mm\:ss");
         }
+        if (chrono >= 10f)
+        {
+
+        }
     }
 }
