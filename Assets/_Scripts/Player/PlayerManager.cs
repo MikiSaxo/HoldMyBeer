@@ -84,8 +84,9 @@ public class PlayerManager : MonoBehaviour
 
     public void UpdateLife(int value)
     {
+        //print("life " + _life);
         _life += value;
-        _lifeBar.fillAmount = _life / 100;
+        _lifeBar.fillAmount = (float)_life / 100f;
     }
     
     public void UpdateXP(int value)
