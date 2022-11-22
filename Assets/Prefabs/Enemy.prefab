@@ -248,6 +248,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _xpObj: {fileID: 2097841010801864839, guid: 7dbce8800f4a4284894944397cd6c7d0, type: 3}
+  _sprite: {fileID: 8527140785274048120}
 --- !u!50 &765609192129362736
 Rigidbody2D:
   serializedVersion: 4

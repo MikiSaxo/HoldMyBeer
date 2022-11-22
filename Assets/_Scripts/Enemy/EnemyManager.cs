@@ -5,17 +5,17 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour
 {
     [SerializeField] private GameObject _xpObj;
+    [SerializeField] private SpriteRenderer _sprite;
 
-    private Color _color;
     private int _life;
     private int _damage;
     private float _atkSpeed;
     private float _atkCooldown;
-    private bool _hasAtk;
+    private bool _hastouchPlayer;
 
     public void Initialize(Color color, int life, int damage, float atkSpeed)
     {
-        _color = color;
+        _sprite.color = color;
         _life = life;
         _damage = damage;
         _atkSpeed = atkSpeed;
@@ -25,7 +25,7 @@ public class EnemyManager : MonoBehaviour
     {
         _life += value;
 
-        if(_life <= 0)
+        if (_life <= 0)
         {
             Instantiate(_xpObj, transform.position, Quaternion.identity);
             Destroy(gameObject);
@@ -34,23 +34,26 @@ public class EnemyManager : MonoBehaviour
 
     private void Update()
     {
-        _atkCooldown += Time.deltaTime;
+        if(_atkCooldown < _atkSpeed)
+            _atkCooldown += Time.deltaTime;
 
-        //if (_atkCooldown > _atkSpeed && _hasAtk)
-        //{
-        //    _atkCooldown -= _atkSpeed;
-        //}
+        if (_atkCooldown > _atkSpeed && _hastouchPlayer)
+        {
+            _atkCooldown -= _atkSpeed;
+            AtkPlayer();
+        }
     }
 
     private void AtkPlayer()
     {
+        //print("jattack player");
         PlayerManager.Instance.UpdateLife(-_damage);
     }
 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.GetComponent<BulletMovement>())
+        if (collision.GetComponent<BulletMovement>())
         {
             //print("une bullet m'a touchée " + PlayerManager.Instance.GetRangedDamage() + " life " + _life);
             UpdateLife(-PlayerManager.Instance.GetRangedDamage());
@@ -60,13 +63,13 @@ public class EnemyManager : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.GetComponent<PlayerManager>())
-        {
-            if(_atkCooldown > _atkSpeed)
-            {
-                _atkCooldown -= _atkSpeed;
-                AtkPlayer();
-            }
-        }
+        if (collision.gameObject.GetComponent<PlayerManager>())
+            _hastouchPlayer = true;
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<PlayerManager>())
+            _hastouchPlayer = false;
     }
 }
