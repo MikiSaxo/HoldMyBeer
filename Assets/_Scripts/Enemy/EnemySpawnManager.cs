@@ -14,8 +14,9 @@ public class EnemySpawnManager : MonoBehaviour
     [Header("EnemyData")]
     [Tooltip("Per sec")] [SerializeField] private float _enemySpawnSpeed;
     [SerializeField] private float _enemyTimerCross;
-    [SerializeField] private float _enemySpeed;
+    [SerializeField] private float _enemySpeedMovement;
     [SerializeField] private EnemyData[] _enemyData;
+    [SerializeField] private SpawnEnemyData _firstSpawnEnemyData;
 
     private Color _enemyColor;
     private int _enemyLife;
@@ -36,7 +37,7 @@ public class EnemySpawnManager : MonoBehaviour
     private void Start()
     {
         _spawnChance = new int[6];
-        UpdateSpawnRate(1, 50, 0, 0, 0, 0);
+        UpdateSpawnRate(_firstSpawnEnemyData.SpawnEnemyChanceInPercent);
         _areaSize.x = GetComponent<RectTransform>().rect.width;
         _areaSize.y = GetComponent<RectTransform>().rect.height;
         //print("_spawnCoolDown " + _spawnCoolDown);
@@ -60,19 +61,17 @@ public class EnemySpawnManager : MonoBehaviour
         GameObject go = Instantiate(_enemy, _spawnParent.transform);
         go.transform.position = new Vector2(newX + _spawnParent.transform.position.x, newY + _spawnParent.transform.position.y);
 
-        go.GetComponent<EnemyParent>().EnemyMoving.GetComponent<EnemyMovement>().Initialize(_player, _enemySpeed);
+        go.GetComponent<EnemyParent>().EnemyMoving.GetComponent<EnemyMovement>().Initialize(_player, _enemySpeedMovement);
         go.GetComponent<EnemyParent>().EnemyMoving.GetComponent<EnemyManager>().Initialize(_enemyColor, _enemyLife, _enemyAtkDamage, _enemyAtkSpeed);
         go.GetComponent<EnemyParent>().EnemyCross.GetComponent<SpawnEnemy>().SetSpawnTimer(_enemyTimerCross);
     }
 
-    public void UpdateSpawnRate(int blanche, int rouge, int blonde, int ambree, int triple, int brune)
+    public void UpdateSpawnRate(int[] wave)
     {
-        _spawnChance[0] = blanche;
-        _spawnChance[1] = rouge;
-        _spawnChance[2] = blonde;
-        _spawnChance[3] = ambree;
-        _spawnChance[4] = triple;
-        _spawnChance[5] = brune;
+        for (int i = 0; i < _spawnChance.Length; i++)
+        {
+            _spawnChance[i] = wave[i];
+        }
     }
 
     private void ChooseRandomBeer()
@@ -81,25 +80,9 @@ public class EnemySpawnManager : MonoBehaviour
         int smallest = int.MaxValue;
 
 
-        //float bestDistance = float.MaxValue;
-        //EnemyController bestEnemy = null;
-
-        //foreach (var enemy in Enemies)
-        //{
-        //    Vector3 direction = enemy.transform.position - position;
-
-        //    float distance = direction.sqrMagnitude;
-
-        //    if (distance < bestDistance)
-        //    {
-        //        bestDistance = distance;
-        //        bestEnemy = enemy;
-        //    }
-        //}
-
         for (int i = 0; i < _spawnChance.Length; i++)
         {
-            if (_spawnChance[i] == 0)
+            if (_spawnChance[i] == 0 || _spawnChance[i] < nb)
                 continue;
 
             var number = Mathf.Abs(_spawnChance[i] - nb);

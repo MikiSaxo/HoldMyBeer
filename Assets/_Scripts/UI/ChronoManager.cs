@@ -8,9 +8,14 @@ public class ChronoManager : MonoBehaviour
 {
     public static ChronoManager Instance;
 
-    [SerializeField] private TextMeshProUGUI chronoText;
-    private bool isGameEnded;
-    private float chrono;
+    [SerializeField] private TextMeshProUGUI _chronoText;
+    [SerializeField] private int _timeForNewSpawnRate;
+    [SerializeField] private SpawnEnemyData[] _spawnEnemyData;
+
+    private int _countSpawnEnemyData;
+    private bool _isGameEnded;
+    private float _chrono;
+    private float _chronoSpawn;
 
     private void Awake()
     {
@@ -19,15 +24,22 @@ public class ChronoManager : MonoBehaviour
 
     void Update()
     {
-        if (!isGameEnded)
+        if (!_isGameEnded)
         {
-            chrono += Time.deltaTime;
-            TimeSpan time = TimeSpan.FromSeconds(chrono);
-            chronoText.text = time.ToString(@"hh\:mm\:ss");
+            _chrono += Time.deltaTime;
+            _chronoSpawn += Time.deltaTime;
+            TimeSpan time = TimeSpan.FromSeconds(_chrono);
+            _chronoText.text = time.ToString(@"hh\:mm\:ss");
         }
-        if (chrono >= 10f)
+        if (_chronoSpawn >= _timeForNewSpawnRate)
         {
+            _chronoSpawn -= _timeForNewSpawnRate;
 
+            if (_countSpawnEnemyData < _spawnEnemyData.Length)
+            {
+                EnemySpawnManager.Instance.UpdateSpawnRate(_spawnEnemyData[_countSpawnEnemyData].SpawnEnemyChanceInPercent);
+                _countSpawnEnemyData++;
+            }
         }
     }
 }
