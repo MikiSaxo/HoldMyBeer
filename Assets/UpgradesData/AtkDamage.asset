@@ -16,4 +16,4 @@ MonoBehaviour:
   Description: ++ Atk Dmg
   MovementSpeed: 0
   AtkSpeed: 0
-  AtkDamage: 10
+  AtkDamage: 3

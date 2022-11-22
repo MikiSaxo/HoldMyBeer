@@ -23,24 +23,28 @@ public class CardUpgrade : MonoBehaviour
         _icon.sprite = UpgradeData.Icon;
         _description.text = UpgradeData.Description;
 
+        //print("Init " + UpgradeData.MovementSpeed + " " + gameObject.name);
+
         //_movementSpeed = UpgradeData.MovementSpeed;
         //_atkSpeed = UpgradeData.AtkSpeed;
         //_atkDamage = UpgradeData.AtkDamage;
     }
 
-    public void OnMouseEnterred()
-    {
-        gameObject.transform.DOComplete();
-        gameObject.transform.DOScale(Vector3.one * 1.1f, .3f);
-    }
-    public void OnMouseLeaved()
-    {
-        gameObject.transform.DOComplete();
-        gameObject.transform.DOScale(Vector3.one, .1f);
-    }
+    //public void OnMouseEnterred()
+    //{
+    //    gameObject.transform.DOComplete();
+    //    gameObject.transform.DOScale(Vector3.one * 1.1f, .3f);
+    //}
+    //public void OnMouseLeaved()
+    //{
+    //    gameObject.transform.DOComplete();
+    //    gameObject.transform.DOScale(Vector3.one, .1f);
+    //}
 
-    public void OnMouseClicked()
+    public void OnClicked(int which)
     {
-        PlayerManager.Instance.GetNewUpgrades(UpgradeData);
+        PlayerManager.Instance.GetNewUpgrades(which);
+        //print("Click " + UpgradeData.MovementSpeed + " " + gameObject.name);
+
     }
 }

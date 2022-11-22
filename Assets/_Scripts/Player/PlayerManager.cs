@@ -27,7 +27,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private int _xpToIncreaseEachStep;
 
     [Header("Crit")]
-    [Tooltip("In %")] [SerializeField] private float _critChance; 
+    [Tooltip("In %")] [SerializeField] private float _critChance;
     [SerializeField] private int _critDamage;
 
     [Header("Ranged")]
@@ -40,6 +40,11 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private Image _xpBar;
     [SerializeField] private GameObject _nextLevelMenu;
     [SerializeField] private GameObject[] _cardsNextLevelMenu;
+
+    [Header("Life")]
+    [SerializeField] private float _timeToRegen;
+    [SerializeField] private int _regen;
+    private float _regenCooldown;
 
     [Header("Upgrades Datas")]
     [SerializeField] private UpgradesData[] _upgradesData;
@@ -64,6 +69,17 @@ public class PlayerManager : MonoBehaviour
         PlayerAim.Instance.UpdateBulletSpeed(_rangedBulletSpeed);
     }
 
+    private void Update()
+    {
+        if(_canMove)
+            _regenCooldown += Time.deltaTime;
+        if(_regenCooldown > _timeToRegen )
+        {
+            _regenCooldown -= _timeToRegen;
+            UpdateLife(_regen);
+        }
+    }
+
     public int GetRangedDamage()
     {
         return _rangedAtkDamage;
@@ -85,14 +101,17 @@ public class PlayerManager : MonoBehaviour
         if (!_canMove) return;
 
         _life += value;
+        if (_life > 100)
+            _life = 100;
+
         _lifeBar.fillAmount = (float)_life / 100f;
     }
-    
+
     public void UpdateXP(int value)
     {
         _xp += value;
 
-        if(_xp >= _xpToReach)
+        if (_xp >= _xpToReach)
         {
             _xp = 0;
             _xpToReach += _xpToIncreaseEachStep;
@@ -128,12 +147,22 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    public void GetNewUpgrades(UpgradesData upData)
+    public void GetNewUpgrades(int which)
     {
+        UpgradesData upData = _upgradesData[which];
+
+        if (_rangedAtkSpeed <= 0.2f && which == 1)
+            return;
+
         _playerSpeed += upData.MovementSpeed;
         SetSpeedPlayer();
-        _rangedAtkSpeed += upData.AtkSpeed;
-        SetRanged();
+        
+        if (_rangedAtkSpeed >= 0.2f)
+        {
+            _rangedAtkSpeed += upData.AtkSpeed;
+            SetRanged();
+        }
+
         _rangedAtkDamage += upData.AtkDamage;
 
         ChooseUpgrade?.Invoke();

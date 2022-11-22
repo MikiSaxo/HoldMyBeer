@@ -15,5 +15,5 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 5563b907c6dbaa341b92f719ecfff2f0, type: 3}
   Description: ++ Atk Speed
   MovementSpeed: 0
-  AtkSpeed: -0.1
+  AtkSpeed: -0.05
   AtkDamage: 0

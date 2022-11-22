@@ -55,6 +55,8 @@ public class EnemyMovement : MonoBehaviour
 
 
         _spriteNormal.flipX = _rb.velocity.x > 0 ? true : false;
+        if (_spriteColored == null)
+            return;
         _spriteColored.flipX = _rb.velocity.x > 0 ? true : false;
     }
 

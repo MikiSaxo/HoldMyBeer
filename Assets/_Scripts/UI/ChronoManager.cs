@@ -46,6 +46,7 @@ public class ChronoManager : MonoBehaviour
                 EnemySpawnManager.Instance.UpdateWhichEnemySpawn(_spawnEnemyData[_countSpawnEnemyData].SpawnEnemyChanceInPercent);
                 EnemySpawnManager.Instance.UpdateSpawnRate(_spawnEnemyData[_countSpawnEnemyData].EnemySpawnSpeed);
                 _countSpawnEnemyData++;
+                EnemySpawnManager.Instance.SpawnEnemy(true);
             }
         }
     }

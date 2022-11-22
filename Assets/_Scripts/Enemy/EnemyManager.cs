@@ -15,7 +15,8 @@ public class EnemyManager : MonoBehaviour
 
     public void Initialize(Color color, int life, int damage, float atkSpeed)
     {
-        _spriteColored.color = color;
+        if(_spriteColored != null)
+            _spriteColored.color = color;
         _life = life;
         _damage = damage;
         _atkSpeed = atkSpeed;

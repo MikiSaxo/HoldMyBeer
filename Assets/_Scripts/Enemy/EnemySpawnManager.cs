@@ -9,7 +9,9 @@ public class EnemySpawnManager : MonoBehaviour
     [Header("Setup")]
     [SerializeField] private GameObject _spawnParent;
     [SerializeField] private GameObject _player;
+    private GameObject _goodEnemy;
     [SerializeField] private GameObject _enemy;
+    [SerializeField] private GameObject _oliver;
 
     [Header("EnemyData")]
     [SerializeField] private float _enemyTimerCross;
@@ -51,28 +53,39 @@ public class EnemySpawnManager : MonoBehaviour
     }
     void Update()
     {
-        if(_canMove)
+        if (_canMove)
             _spawnCoolDown += Time.deltaTime;
 
         if (_spawnCoolDown > _enemySpawnSpeed)
         {
             _spawnCoolDown -= _enemySpawnSpeed;
-            SpawnEnemy();
+            SpawnEnemy(false);
         }
     }
 
-    private void SpawnEnemy()
+    public void SpawnEnemy(bool isOliver)
     {
         ChooseRandomBeer();
         var newY = Random.Range(0, _areaSize.y);
         var newX = Random.Range(0, _areaSize.x);
-        GameObject go = Instantiate(_enemy, _spawnParent.transform);
+
+
+        _goodEnemy = isOliver ? _oliver : _enemy;
+
+        GameObject go = Instantiate(_goodEnemy, _spawnParent.transform);
         go.transform.position = new Vector2(newX + _spawnParent.transform.position.x, newY + _spawnParent.transform.position.y);
 
         go.GetComponent<EnemyParent>().EnemyMoving.GetComponent<EnemyMovement>().Initialize(_player, _enemySpeedMovement);
-        go.GetComponent<EnemyParent>().EnemyMoving.GetComponent<EnemyManager>().Initialize(_enemyColor, _enemyLife, _enemyAtkDamage, _enemyAtkSpeed);
-        go.GetComponent<EnemyParent>().EnemyCross.GetComponent<SpawnEnemy>().SetSpawnTimer(_enemyTimerCross);
+
+        if (!isOliver)
+        {
+            go.GetComponent<EnemyParent>().EnemyCross.GetComponent<SpawnEnemy>().SetSpawnTimer(_enemyTimerCross);
+            go.GetComponent<EnemyParent>().EnemyMoving.GetComponent<EnemyManager>().Initialize(_enemyColor, _enemyLife, _enemyAtkDamage, _enemyAtkSpeed);
+        }
+        else
+            go.GetComponent<EnemyParent>().EnemyMoving.GetComponent<EnemyManager>().Initialize(_enemyColor, _enemyLife * 10, _enemyAtkDamage, _enemyAtkSpeed * 2);
     }
+
 
     public void UpdateWhichEnemySpawn(int[] wave)
     {
