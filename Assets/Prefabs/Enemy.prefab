@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3567180485541801407}
-  - component: {fileID: 1985547337746503903}
   - component: {fileID: 8429208537296335845}
   - component: {fileID: 4483506365205908266}
   m_Layer: 3
@@ -34,14 +33,6 @@ Transform:
   m_Father: {fileID: 4170584144254156291}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!222 &1985547337746503903
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2726411512400641026}
-  m_CullTransparentMesh: 1
 --- !u!114 &8429208537296335845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,7 +107,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 618590638434243613}
-  - component: {fileID: 6991444063400529349}
   - component: {fileID: 8527140785274048120}
   m_Layer: 3
   m_Name: Sprite
@@ -140,14 +130,6 @@ Transform:
   m_Father: {fileID: 1092905522918185346}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!222 &6991444063400529349
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3428210652958673373}
-  m_CullTransparentMesh: 1
 --- !u!212 &8527140785274048120
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -265,6 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3e2899012a1db943a4080f25adef5bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _xpObj: {fileID: 2097841010801864839, guid: 7dbce8800f4a4284894944397cd6c7d0, type: 3}
 --- !u!50 &765609192129362736
 Rigidbody2D:
   serializedVersion: 4
@@ -321,7 +304,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4170584144254156291}
-  - component: {fileID: 3660094342217283709}
   - component: {fileID: 6374693551643054806}
   m_Layer: 3
   m_Name: Enemy
@@ -352,14 +334,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &3660094342217283709
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6299324112323105937}
-  m_CullTransparentMesh: 1
 --- !u!114 &6374693551643054806
 MonoBehaviour:
   m_ObjectHideFlags: 0

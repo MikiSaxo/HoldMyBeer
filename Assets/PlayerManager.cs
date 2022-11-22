@@ -98,7 +98,16 @@ public class PlayerManager : MonoBehaviour
             _xpToReach += _xpToIncreaseEachStep;
             //LauchMenu Upgrades
         }
+        //print("hello xp " + (float)_xp / (float)_xpToReach);
+        _xpBar.fillAmount = (float)_xp / (float)_xpToReach;// / 100;
+    }
 
-        _xpBar.fillAmount = _xp / 100;
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.GetComponent<XpObject>())
+        {
+            UpdateXP(1);
+            Destroy(collision.gameObject);
+        }
     }
 }

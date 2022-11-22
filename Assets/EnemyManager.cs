@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
+    [SerializeField] private GameObject _xpObj;
+
     private int _life;
     private int _damage;
     private float _atkSpeed;
@@ -22,7 +24,7 @@ public class EnemyManager : MonoBehaviour
 
         if(_life <= 0)
         {
-            //Spawn XP
+            Instantiate(_xpObj, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }

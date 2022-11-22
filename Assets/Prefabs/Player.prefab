@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 262147480565804633}
   - component: {fileID: 262147480565804634}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cursor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,7 +64,7 @@ GameObject:
   - component: {fileID: 262147481026988173}
   - component: {fileID: 262147481026988174}
   - component: {fileID: 262147481026988175}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78,7 +78,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 262147481026988169}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -102,6 +102,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _life: 100
   _playerSpeed: 5
+  _xpToReach: 5
+  _xpToIncreaseEachStep: 15
   _critChance: 20
   _critDamage: 50
   _meleeAtkSpeed: 1
@@ -111,6 +113,8 @@ MonoBehaviour:
   _rangedAtkSpeed: 0.5
   _rangedAtkDamage: 2
   _rangedBulletSpeed: 10
+  _lifeBar: {fileID: 0}
+  _xpBar: {fileID: 0}
 --- !u!114 &262147481026988172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,9 +236,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3331735472356029391}
-  - component: {fileID: 262147481693567326}
   - component: {fileID: 1002273803753656848}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -250,20 +253,12 @@ Transform:
   m_GameObject: {fileID: 262147481693567321}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.91, y: 0.91, z: 0.91}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 262147481026988168}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!222 &262147481693567326
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 262147481693567321}
-  m_CullTransparentMesh: 1
 --- !u!212 &1002273803753656848
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -325,9 +320,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 262147481816246382}
-  - component: {fileID: 262147481816246383}
   - component: {fileID: 1388054255209838027}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: MeleeRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -354,14 +348,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &262147481816246383
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 262147481816246377}
-  m_CullTransparentMesh: 1
 --- !u!212 &1388054255209838027
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -423,10 +409,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1370088779344004824}
-  - component: {fileID: 262147482125088868}
   - component: {fileID: 1187413620779933800}
-  m_Layer: 0
-  m_Name: Image
+  m_Layer: 3
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -447,14 +432,6 @@ Transform:
   m_Father: {fileID: 262147480565804633}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!222 &262147482125088868
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 262147482125088871}
-  m_CullTransparentMesh: 1
 --- !u!212 &1187413620779933800
 SpriteRenderer:
   m_ObjectHideFlags: 0

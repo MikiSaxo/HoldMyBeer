@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8314669860905486298}
   - component: {fileID: 1870436058738699509}
-  - component: {fileID: 5202721565651760062}
   - component: {fileID: 4605327995922094964}
   m_Layer: 0
   m_Name: Border
@@ -60,14 +59,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.2735468, y: 1.2623208}
   m_EdgeRadius: 0
---- !u!222 &5202721565651760062
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1870436058738699511}
-  m_CullTransparentMesh: 1
 --- !u!212 &4605327995922094964
 SpriteRenderer:
   m_ObjectHideFlags: 0
