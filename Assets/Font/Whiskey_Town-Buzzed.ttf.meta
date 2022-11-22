@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 833e21ac436523e47975472ee7f59a79
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Whiskey Town
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 54e2d507e6048a047bda8f365c146f52, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
