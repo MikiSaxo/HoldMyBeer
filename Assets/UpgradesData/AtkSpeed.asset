@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AtkSpeed
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 5563b907c6dbaa341b92f719ecfff2f0, type: 3}
-  Description: ++ Atk Speed
+  Description: Increase Attack Speed
   MovementSpeed: 0
   AtkSpeed: -0.05
   AtkDamage: 0

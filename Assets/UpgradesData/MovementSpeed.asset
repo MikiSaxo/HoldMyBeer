@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MovementSpeed
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 22a870330cd10954f92274f0dd51399f, type: 3}
-  Description: ++ Move Speed
+  Description: Increase Movement Speed
   MovementSpeed: 0.5
   AtkSpeed: 0
   AtkDamage: 0
